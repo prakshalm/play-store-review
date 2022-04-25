@@ -2,6 +2,30 @@
 import pandas as pd
 import numpy as np
 from thefuzz import fuzz
+import re
+
+from src.slackbot import user_details
+
+def getUserName(userMessage:str):
+    userMessage=userMessage.split(" ")
+    print(userMessage)
+    for data in userMessage:
+        returned_value=re.search(r"<https://www.google.com/search\?q=%22",data,re.IGNORECASE)
+        if returned_value:
+            userName=returned_value.string
+            userName=userName.replace("<https://www.google.com/search?q=%22","")
+            userName=userName.replace("+"," ")
+            userName=userName.replace("%22","")
+            userName=userName.replace("|"," ")
+            userName=userName.split(" ")
+            userName=userName.replace("_"," ") 
+            userName=userName.replace("-"," ")
+            userName = ''.join([i for i in userName if not i.isdigit()])
+            userName=str(userName[0]+" "+userName[1])
+            print(userName)
+            return userName
+    return "No User Found"
+    
 
 def removeDuplicates(lst):
       
@@ -22,7 +46,7 @@ def removeDuplicatesPhone(lst):
 
 def get_cx_data(user_to_search:str):
     
-    df=pd.read_csv('data_cx.csv',skiprows=1)
+    df=pd.read_csv('./operations/data_cx.csv',skiprows=1)
     length=df.shape[0]
     df_name=df['user_name']
     user_info=list()
@@ -33,11 +57,11 @@ def get_cx_data(user_to_search:str):
     user_info=removeDuplicatesPhone(user_info)
     user_info_df=pd.DataFrame(user_info)
     user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number'}, inplace = True)
-    return user_info_df
+    return user_info_df.to_string()
 
 def get_cl_data(user_to_search:str):
     
-    df=pd.read_csv('data_cl.csv',skiprows=1)
+    df=pd.read_csv('./operations/data_cl.csv',skiprows=1)
     length=df.shape[0]
     df_name=df['name']
     user_info=list()
@@ -48,4 +72,4 @@ def get_cl_data(user_to_search:str):
     user_info=removeDuplicatesPhone(user_info)
     user_info_df=pd.DataFrame(user_info)
     user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number'}, inplace = True)
-    return user_info_df
+    return user_info_df.to_string()

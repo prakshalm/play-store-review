@@ -1,4 +1,3 @@
-from thefuzz import fuzz
 from slack_sdk import WebClient
 import os
 import logging
@@ -6,8 +5,8 @@ from slack_sdk.errors import SlackApiError
 from pathlib import Path
 from dotenv import load_dotenv
 from slackeventsapi import SlackEventAdapter
-from flask import Flask,Response, flash,request
-from operations.user_data import get_cl_data,get_cx_data
+from flask import Flask
+from operations.user_data import get_cl_data,get_cx_data,getUserName
 
 '''setting tokens for the bot and environment for app'''
 
@@ -30,16 +29,27 @@ def user_details(payload):
         user_message=event['text']
         ts=event['ts']
         if (BOT_ID != user_id):
-            print(user_message)
-            client.chat_postMessage(
-                channel=channel_id,
-                thread_ts=ts,
-                text=user_message
-            )
-            message=user_message.split(" ")
-            playStore_name=''
-            get_cl_data(playStore_name)
-        
+            if 'thread_ts' not in event:
+                user_name=getUserName(user_message)
+                if user_message != "No User Name found":
+                    print(user_name)
+                    app_name=user_message.split(" ")
+                    if app_name==app_name[1]: 
+                        user_data=get_cl_data(user_name)    
+                    else:
+                        user_data=get_cx_data(user_name)    
+                        
+                    client.chat_postMessage(
+                        channel=channel_id,
+                        thread_ts=ts,
+                        text=f"User can be:\n{user_data}"
+                    )   
+                else:
+                    client.chat_postMessage(
+                        channel=channel_id,
+                        thread_ts=ts,
+                        text=f"{user_data}"
+                    )
         
     except SlackApiError as e:
         logger.error("Error creating conversation: {}".format(e))
