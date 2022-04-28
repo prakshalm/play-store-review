@@ -1,9 +1,10 @@
 
+import logging
 import pandas as pd
 import numpy as np
 from thefuzz import fuzz
 import re
-from tabulate import tabulate
+logger = logging.getLogger(__name__)
 
 def getUserName(userMessage:str):
     userMessage=userMessage.split(" ")
@@ -32,7 +33,9 @@ def getUserName(userMessage:str):
     
 
 def removeDuplicates(lst):
-      
+    '''
+    Removes Duplicate values and appends the user_id of the entries having same phone number
+    '''
     seen = []
     Output = []
     for a, b, c, d in lst:
@@ -56,7 +59,7 @@ def removeDuplicates(lst):
 # FOR CX
 def get_cx_data(user_to_search:str,threshold=95):
     if threshold>80:
-        print('Searching in cx.csv')
+        logger.info('Searching in cx.csv')
         df=pd.read_csv('./operations/data_cx.csv',skiprows=1)
         length=df.shape[0]
         user_info=list()
@@ -78,7 +81,6 @@ def get_cx_data(user_to_search:str,threshold=95):
             return res
     else:
         return "No user Found"
-
 
 
 # FOR CL

@@ -8,25 +8,27 @@ from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from operations.user_data import get_cx_data,getUserName,get_cl_data
 import json
+
+
 '''setting tokens for the bot and environment for app'''
 
 env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path)
 client=WebClient(token=os.environ['SLACK_TOKEN'])
-logger = logging.getLogger(__name__)
 slack_app=App(
     token=os.environ['SLACK_TOKEN'],
     signing_secret=os.environ['SIGNING_SECRET']
 )
 BOT_ID=client.api_call("auth.test")['user_id']
+logger = logging.getLogger(__name__)
 
 @slack_app.event("message")
 def userDetails(payload):
     try:
         if 'subtype' in payload:
-            user_id=payload['user']
-            userName_link=payload['attachment'][0]['fields'][0]['value']
-            app_name=payload['attachment'][0]['fallback']
+            user_id=payload['bot_id']
+            userName_link=payload['attachments'][0]['fields'][0]['value']
+            app_name=payload['attachments'][0]['fallback']
             channel_id=payload['channel']
             ts=payload['ts']
             with open('paylod_data.json', 'a') as json_file:
@@ -40,7 +42,6 @@ def userDetails(payload):
                     if user_name!="No user_name detected":
                         if app_name[0]!='CityMall':
                             user_details=get_cl_data(user_name)
-
                         else:
                             user_details=get_cx_data(user_name)
 
@@ -50,9 +51,8 @@ def userDetails(payload):
                             thread_ts=ts
                         )
                     else:
-                        print("User_name Couldnt be detected")
+                        logger.info("User_name Couldnt be detected")
                     
-            
     except SlackApiError as e:
         logger.error("Error creating conversation: {}".format(e))
 
