@@ -11,9 +11,9 @@ def get_userData():
     df_cx=get_data_cmdb(
         """
         select 
-        o.user_id, u.user_name, u.user_phone, o.order_status
+        o.user_id, u.user_name, u.user_phone, o.order_status, o.processing_at
         from orders o join tbl_user u on u.user_id = o.user_id 
-        where o.processing_at > now() - interval '10 days';
+        where o.processing_at > now() - interval '10 days' ORDER BY o.processing_at DESC;
         """
     )
     print("Writing data in data_cx.csv")
@@ -30,9 +30,9 @@ def get_userData():
     df_cl=get_data_cmdb(
         """
         select
-        o.user_id, tl.name, tl.phone_number, o.order_status 
+        o.user_id, tl.name, tl.phone_number, o.order_status, o.processing_at 
         from orders o join team_leaders tl on tl.id = o.team_leader 
-        where o.processing_at > now() - interval '10 days';
+        where o.processing_at > now() - interval '10 days' ORDER BY o.processing_at DESC;
         """
        
     )

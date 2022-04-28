@@ -4,56 +4,58 @@ import logging
 from slack_sdk.errors import SlackApiError
 from pathlib import Path
 from dotenv import load_dotenv
-from slackeventsapi import SlackEventAdapter
-from flask import Flask
-from operations.user_data import get_cl_data,get_cx_data,getUserName
-
+from slack_bolt import App
+from slack_bolt.adapter.socket_mode import SocketModeHandler
+from operations.user_data import get_cx_data,getUserName,get_cl_data
+import json
 '''setting tokens for the bot and environment for app'''
 
 env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path)
 client=WebClient(token=os.environ['SLACK_TOKEN'])
 logger = logging.getLogger(__name__)
-app=Flask(__name__)
-slack_event_adapter=SlackEventAdapter(os.environ['SIGNING_SECRET'],"/slack/events",app)
+slack_app=App(
+    token=os.environ['SLACK_TOKEN'],
+    signing_secret=os.environ['SIGNING_SECRET']
+)
 BOT_ID=client.api_call("auth.test")['user_id']
 
-
-'''Replying to the message as a thread with user_details'''
-@slack_event_adapter.on("message")
-def user_details(payload):
+@slack_app.event("message")
+def userDetails(payload):
     try:
-        event=payload.get('event',{})
-        channel_id=event['channel']
-        user_id=event['user']
-        user_message=event['text']
-        ts=event['ts']
-        if (BOT_ID != user_id):
-            if 'thread_ts' not in event:
-                user_name=getUserName(user_message)
-                if user_message != "No User Name found":
-                    print(user_name)
-                    app_name=user_message.split(" ")
-                    if app_name==app_name[1]: 
-                        user_data=get_cl_data(user_name)    
+        if 'subtype' in payload:
+            user_id=payload['user']
+            userName_link=payload['attachment'][0]['fields'][0]['value']
+            app_name=payload['attachment'][0]['fallback']
+            channel_id=payload['channel']
+            ts=payload['ts']
+            with open('paylod_data.json', 'a') as json_file:
+                json_file.write('\n')
+                json.dump(payload, json_file,indent=4,separators=(',',': '))
+                
+            if BOT_ID!=user_id:
+                if 'thread_ts' not in payload:
+                    app_name=app_name.split(" ")
+                    user_name=getUserName(userName_link)
+                    if user_name!="No user_name detected":
+                        if app_name[0]!='CityMall':
+                            user_details=get_cl_data(user_name)
+
+                        else:
+                            user_details=get_cx_data(user_name)
+
+                        client.chat_postMessage(
+                            channel=channel_id,
+                            text=f"User can be:\n{user_details}",
+                            thread_ts=ts
+                        )
                     else:
-                        user_data=get_cx_data(user_name)    
-                        
-                    client.chat_postMessage(
-                        channel=channel_id,
-                        thread_ts=ts,
-                        text=f"User can be:\n{user_data}"
-                    )   
-                else:
-                    client.chat_postMessage(
-                        channel=channel_id,
-                        thread_ts=ts,
-                        text=f"{user_data}"
-                    )
-        
+                        print("User_name Couldnt be detected")
+                    
+            
     except SlackApiError as e:
         logger.error("Error creating conversation: {}".format(e))
-        
-    
+
+            
 if __name__== "__main__":
-    app.run(debug=True,port=5002)
+    SocketModeHandler(slack_app, os.environ["SLACK_APP_TOKEN"]).start()

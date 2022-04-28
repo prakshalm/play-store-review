@@ -3,12 +3,10 @@ import pandas as pd
 import numpy as np
 from thefuzz import fuzz
 import re
-
-from src.slackbot import user_details
+from tabulate import tabulate
 
 def getUserName(userMessage:str):
     userMessage=userMessage.split(" ")
-    print(userMessage)
     for data in userMessage:
         returned_value=re.search(r"<https://www.google.com/search\?q=%22",data,re.IGNORECASE)
         if returned_value:
@@ -17,59 +15,96 @@ def getUserName(userMessage:str):
             userName=userName.replace("+"," ")
             userName=userName.replace("%22","")
             userName=userName.replace("|"," ")
+            if '-' and '_' in userName:
+                userName=userName.replace("_","") 
+                userName=userName.replace("-"," ") 
+            else:
+                userName=userName.replace("_"," ") 
+                userName=userName.replace("-"," ") 
+            userName = ''.join([i for i in userName if not i.isdigit()]) # removing digits from the retreived name
             userName=userName.split(" ")
-            userName=userName.replace("_"," ") 
-            userName=userName.replace("-"," ")
-            userName = ''.join([i for i in userName if not i.isdigit()])
             userName=str(userName[0]+" "+userName[1])
             print(userName)
-            return userName
-    return "No User Found"
+    if userName:        
+        return userName
+    else:
+        return "No user_name detected"
     
 
 def removeDuplicates(lst):
       
-    return list(set([i for i in lst]))
-
-def removeDuplicatesPhone(lst):
     seen = []
     Output = []
-    for a, b, c in lst:
-        if not c in seen:
+    for a, b, c, d in lst:
+        if [a,b,c] not in seen:
+            seen.append([a,b,c])
+            Output.append([a, b, c, d])
+
+    seen = []
+    removed_Duplicate = []
+    for a, b, c, d in Output:
+        if c not in seen:
             seen.append(c)
-            Output.append([a, b, c])
+            removed_Duplicate.append([a, b, c, d])
         else:
             index=seen.index(c)
-            Output[index][1]=str(Output[index][1])+','+str(b)
+            removed_Duplicate[index][1]=str(removed_Duplicate[index][1])+','+str(b)
             
-    return Output
+    return removed_Duplicate
 
-def get_cx_data(user_to_search:str):
-    
-    df=pd.read_csv('./operations/data_cx.csv',skiprows=1)
-    length=df.shape[0]
-    df_name=df['user_name']
-    user_info=list()
-    for i in range(length):
-        if(fuzz.ratio(str(df_name[i]).lower(),user_to_search.lower())>80):
-            user_info.append((df_name[i],df['user_id'][i],df['user_phone'][i]))
-    user_info=removeDuplicates(user_info)
-    user_info=removeDuplicatesPhone(user_info)
-    user_info_df=pd.DataFrame(user_info)
-    user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number'}, inplace = True)
-    return user_info_df.to_string()
 
-def get_cl_data(user_to_search:str):
+# FOR CX
+def get_cx_data(user_to_search:str,threshold=95):
+    if threshold>80:
+        print('Searching in cx.csv')
+        df=pd.read_csv('./operations/data_cx.csv',skiprows=1)
+        length=df.shape[0]
+        user_info=list()
+        for i in range(length):
+            if(fuzz.ratio(str(df['user_name'][i]).lower(),user_to_search.lower())>threshold):
+                user_info.append((df['user_name'][i],df['user_id'][i],df['user_phone'][i],df['processing_at'][i]))
+        user_info=removeDuplicates(user_info)
+        user_info_df=pd.DataFrame(user_info)
+        user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'Processing At'}, inplace = True)
+        if user_info_df.shape[0]>=1:
+            user_info_df=user_info_df.sort_values(by=['Processing At']).head(11)
+            user_info_df.drop("Processing At",axis=1,inplace=True)
+            print('Searched in cx.csv')
+            print(user_info_df)
+            return user_info_df
+        else:
+            print(user_info_df)
+            res=get_cx_data(user_to_search,threshold-5)
+            return res
+    else:
+        return "No user Found"
+
+
+
+# FOR CL
+def get_cl_data(user_to_search:str,threshold=95):
+    if(threshold>80):
+        print('Searching in cl.csv')
+        df=pd.read_csv('./operations/data_cl.csv',skiprows=1)
+        length=df.shape[0]
+        user_info=list()
+        for i in range(length):
+            if(fuzz.ratio(str(df['name'][i]).lower(),user_to_search.lower())>threshold):
+                user_info.append((df['name'][i],df['user_id'][i],df['phone_number'][i],df['processing_at'][i]))
+        user_info=removeDuplicates(user_info)
+        user_info_df=pd.DataFrame(user_info)
+        user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'Processing At'}, inplace = True)
+        if user_info_df.shape[0]>=1:
+            user_info_df=user_info_df.sort_values(by=['Processing At']).head(11)
+            user_info_df= user_info_df.drop("Processing At",axis=1)
+            print('Searched in cl.csv')
+            print(user_info_df)
+            return user_info_df
+        else:
+            print(user_info_df)
+            res=get_cl_data(user_to_search,threshold-5)
+            return res
+    else:
+        return "No user Found"
     
-    df=pd.read_csv('./operations/data_cl.csv',skiprows=1)
-    length=df.shape[0]
-    df_name=df['name']
-    user_info=list()
-    for i in range(length):
-        if(fuzz.ratio(str(df_name[i]).lower(),user_to_search.lower())>80):
-            user_info.append((df_name[i],df['user_id'][i],df['phone_number'][i]))
-    user_info=removeDuplicates(user_info)
-    user_info=removeDuplicatesPhone(user_info)
-    user_info_df=pd.DataFrame(user_info)
-    user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number'}, inplace = True)
-    return user_info_df.to_string()
+    

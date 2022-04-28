@@ -1,0 +1,205 @@
+
+{
+    "type": "message",
+    "subtype": "bot_message",
+    "text": "",
+    "ts": "1651130648.337829",
+    "bot_id": "B03B7CH7KMX",
+    "attachments": [
+        {
+            "id": 1,
+            "thumb_height": 512,
+            "thumb_width": 512,
+            "thumb_url": "https://play-lh.googleusercontent.com/Us16LmGy_PeXSn6f-OTVqC6Kxm52yMiSxeLJN-fcLp-DKNark8Tu4t5UIKlTgBc6Ijc",
+            "color": "f0603a",
+            "fallback": "CityMall - Online Grocery Shop (Google Play)\u2605 EN Koi bi ye app download mat karna ye app batata to 10 rs off hai lekin karta 1 rs hai",
+            "text": "\u2605\u2606\u2606\u2606\u2606 English \nKoi bi ye app download mat karna ye app batata to 10 rs off hai lekin karta 1 rs hai",
+            "pretext": "<https://watch.appfollow.io/apps/my-first-workspace/integrations/56176?utm_source=review&amp;utm_medium=slack&amp;utm_campaign=Google+Play&amp;tab=slack&amp;autologin=236483:38c72ac5cdcd77062ab7fb6b9bfd34423dee3ab195ff51cb579534a15f9ffa47:1651130648&amp;t=r|CityMall - Online Grocery Shop>\nGoogle Play, City Mall Live",
+            "fields": [
+                {
+                    "value": "_by_ <https://www.google.com/search?q=%22ritik+sahu%22|_ritik sahu_>_ _ \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=984503822&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=reply&amp;autologin=236483:38c72ac5cdcd77062ab7fb6b9bfd34423dee3ab195ff51cb579534a15f9ffa47:1651130648&amp;t=r|*Reply*> \u00b7 <https://appfollow.io/gp/10556/review/984503822?s=global4&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=permalink|Permalink> \u00b7 <https://appfollow.io/gp/10556/review/984503822?s=global4&amp;action=translate&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=translate|Translate> \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=984503822&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=add_tag&amp;autologin=236483:38c72ac5cdcd77062ab7fb6b9bfd34423dee3ab195ff51cb579534a15f9ffa47:1651130648&amp;t=r|Add tag>",
+                    "title": "",
+                    "short": false
+                }
+            ],
+            "mrkdwn_in": [
+                "fields",
+                "pretext",
+                "text"
+            ]
+        }
+    ],
+    "channel": "C03AUQ337J7",
+    "event_ts": "1651130648.337829",
+    "channel_type": "channel"
+}
+{
+    "type": "message",
+    "subtype": "bot_message",
+    "text": "",
+    "ts": "1651130648.995169",
+    "bot_id": "B03B7CH7KMX",
+    "attachments": [
+        {
+            "id": 1,
+            "thumb_height": 512,
+            "thumb_width": 512,
+            "thumb_url": "https://play-lh.googleusercontent.com/Us16LmGy_PeXSn6f-OTVqC6Kxm52yMiSxeLJN-fcLp-DKNark8Tu4t5UIKlTgBc6Ijc",
+            "color": "f0603a",
+            "fallback": "CityMall - Online Grocery Shop (Google Play)\u2605 EN Very bad app kissi par bhi delviery nhi de raha Bad bad full time waste",
+            "text": "\u2605\u2606\u2606\u2606\u2606 English \nVery bad app kissi par bhi delviery nhi de raha Bad bad full time waste",
+            "pretext": "<https://watch.appfollow.io/apps/my-first-workspace/integrations/56176?utm_source=review&amp;tab=slack&amp;utm_campaign=Google+Play&amp;utm_medium=slack&amp;autologin=236483:38c72ac5cdcd77062ab7fb6b9bfd34423dee3ab195ff51cb579534a15f9ffa47:1651130648&amp;t=r|CityMall - Online Grocery Shop>\nGoogle Play, City Mall Live",
+            "fields": [
+                {
+                    "value": "_by_ <https://www.google.com/search?q=%22Azeem+Ahmed%22|_Azeem Ahmed_>_ for v1.30.9 () \u2013  _ \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=984503823&amp;utm_source=reviews&amp;utm_medium=slack&amp;utm_campaign=reply&amp;autologin=236483:38c72ac5cdcd77062ab7fb6b9bfd34423dee3ab195ff51cb579534a15f9ffa47:1651130648&amp;t=r|*Reply*> \u00b7 <https://appfollow.io/gp/10556/review/984503823?s=global4&amp;utm_source=reviews&amp;utm_medium=slack&amp;utm_campaign=permalink|Permalink> \u00b7 <https://appfollow.io/gp/10556/review/984503823?s=global4&amp;action=translate&amp;utm_source=reviews&amp;utm_medium=slack&amp;utm_campaign=translate|Translate> \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=984503823&amp;utm_source=reviews&amp;utm_medium=slack&amp;utm_campaign=add_tag&amp;autologin=236483:38c72ac5cdcd77062ab7fb6b9bfd34423dee3ab195ff51cb579534a15f9ffa47:1651130648&amp;t=r|Add tag>",
+                    "title": "",
+                    "short": false
+                }
+            ],
+            "mrkdwn_in": [
+                "fields",
+                "pretext",
+                "text"
+            ]
+        }
+    ],
+    "channel": "C03AUQ337J7",
+    "event_ts": "1651130648.995169",
+    "channel_type": "channel"
+}
+{
+    "type": "message",
+    "subtype": "bot_message",
+    "text": "",
+    "ts": "1651130649.707249",
+    "bot_id": "B03B7CH7KMX",
+    "attachments": [
+        {
+            "id": 1,
+            "thumb_height": 512,
+            "thumb_width": 512,
+            "thumb_url": "https://play-lh.googleusercontent.com/Us16LmGy_PeXSn6f-OTVqC6Kxm52yMiSxeLJN-fcLp-DKNark8Tu4t5UIKlTgBc6Ijc",
+            "color": "f0603a",
+            "fallback": "CityMall - Online Grocery Shop (Google Play)\u2605 EN iss kadar ka ghatiya app hai order karne ke 10 din baad saman deliver hota h dealer k pass saman aaa jata hai status mein delivery show kara dete h leken dealer delivery nahi karata return karne ka time isi mein khatam ho jata hai jb tk us dealer ko call na kro saman ni aa skta .... bakwas app :angry::angry:",
+            "text": "\u2605\u2606\u2606\u2606\u2606 English \niss kadar ka ghatiya app hai order karne ke 10 din baad saman deliver hota h dealer k pass saman aaa jata hai status mein delivery show kara dete h leken dealer delivery nahi karata return karne ka time isi mein khatam ho jata hai jb tk us dealer ko call na kro saman ni aa skta .... bakwas app :angry::angry:",
+            "pretext": "<https://watch.appfollow.io/apps/my-first-workspace/integrations/56176?utm_source=review&amp;utm_medium=slack&amp;tab=slack&amp;utm_campaign=Google+Play&amp;autologin=236483:fa4816249e51a246b354e021e7e7c4557a961cfcd340f4c554a0b3e5385c3bfd:1651130649&amp;t=r|CityMall - Online Grocery Shop>\nGoogle Play, City Mall Live",
+            "fields": [
+                {
+                    "value": "_by_ <https://www.google.com/search?q=%22Miss+Saifi%22|_Miss Saifi_>_ for v1.30.9 () \u2013  _ \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=984503825&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=reply&amp;autologin=236483:fa4816249e51a246b354e021e7e7c4557a961cfcd340f4c554a0b3e5385c3bfd:1651130649&amp;t=r|*Reply*> \u00b7 <https://appfollow.io/gp/10556/review/984503825?s=global4&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=permalink|Permalink> \u00b7 <https://appfollow.io/gp/10556/review/984503825?s=global4&amp;action=translate&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=translate|Translate> \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=984503825&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=add_tag&amp;autologin=236483:fa4816249e51a246b354e021e7e7c4557a961cfcd340f4c554a0b3e5385c3bfd:1651130649&amp;t=r|Add tag>",
+                    "title": "",
+                    "short": false
+                }
+            ],
+            "mrkdwn_in": [
+                "fields",
+                "pretext",
+                "text"
+            ]
+        }
+    ],
+    "channel": "C03AUQ337J7",
+    "event_ts": "1651130649.707249",
+    "channel_type": "channel"
+}
+{
+    "type": "message",
+    "subtype": "bot_message",
+    "text": "",
+    "ts": "1651130650.436599",
+    "bot_id": "B03B7CH7KMX",
+    "attachments": [
+        {
+            "id": 1,
+            "thumb_height": 512,
+            "thumb_width": 512,
+            "thumb_url": "https://play-lh.googleusercontent.com/Us16LmGy_PeXSn6f-OTVqC6Kxm52yMiSxeLJN-fcLp-DKNark8Tu4t5UIKlTgBc6Ijc",
+            "color": "f0603a",
+            "fallback": "CityMall - Online Grocery Shop (Google Play)\u2605 EN 5 \u0926\u093f\u0928 \u0939\u094b \u0917\u092f \u0939\u0948 \u0932\u0940\u0921\u0930 \u0921\u093f\u0932\u0940\u0935\u0930\u0940 \u0926\u0947\u0928\u0947 \u0938\u0947 \u092e\u0928\u093e \u0915\u0930 \u0930\u0939\u093e \u0939\u0948 \u0914\u0930 \u0906\u0930\u094d\u0921\u0930 \u0915\u0948\u0902\u0938\u0932 \u092d\u0940 \u0928\u0939\u0940\u0902 \u0915\u0930 \u0930\u0939\u093e \u092e\u0947\u0930\u093e \u0906\u0930\u094d\u0921\u0930 \u0928\u0902\u092c\u0930 \u0939\u0947 9501073",
+            "text": "\u2605\u2606\u2606\u2606\u2606 English \n5 \u0926\u093f\u0928 \u0939\u094b \u0917\u092f \u0939\u0948 \u0932\u0940\u0921\u0930 \u0921\u093f\u0932\u0940\u0935\u0930\u0940 \u0926\u0947\u0928\u0947 \u0938\u0947 \u092e\u0928\u093e \u0915\u0930 \u0930\u0939\u093e \u0939\u0948 \u0914\u0930 \u0906\u0930\u094d\u0921\u0930 \u0915\u0948\u0902\u0938\u0932 \u092d\u0940 \u0928\u0939\u0940\u0902 \u0915\u0930 \u0930\u0939\u093e \u092e\u0947\u0930\u093e \u0906\u0930\u094d\u0921\u0930 \u0928\u0902\u092c\u0930 \u0939\u0947 9501073",
+            "pretext": "<https://watch.appfollow.io/apps/my-first-workspace/integrations/56176?utm_medium=slack&amp;utm_campaign=Google+Play&amp;tab=slack&amp;utm_source=review&amp;autologin=236483:040b9b4fe6e325d20ab9bf54aee582d93970cfa9f6a488cb5f508e943dab71fd:1651130650&amp;t=r|CityMall - Online Grocery Shop>\nGoogle Play, City Mall Live",
+            "fields": [
+                {
+                    "value": "_by_ <https://www.google.com/search?q=%22Sunil+Kapoor%22|_Sunil Kapoor_>_ for v1.30.9 () \u2013  _ \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=984503826&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=reply&amp;autologin=236483:040b9b4fe6e325d20ab9bf54aee582d93970cfa9f6a488cb5f508e943dab71fd:1651130650&amp;t=r|*Reply*> \u00b7 <https://appfollow.io/gp/10556/review/984503826?s=global4&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=permalink|Permalink> \u00b7 <https://appfollow.io/gp/10556/review/984503826?s=global4&amp;action=translate&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=translate|Translate> \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=984503826&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=add_tag&amp;autologin=236483:040b9b4fe6e325d20ab9bf54aee582d93970cfa9f6a488cb5f508e943dab71fd:1651130650&amp;t=r|Add tag>",
+                    "title": "",
+                    "short": false
+                }
+            ],
+            "mrkdwn_in": [
+                "fields",
+                "pretext",
+                "text"
+            ]
+        }
+    ],
+    "channel": "C03AUQ337J7",
+    "event_ts": "1651130650.436599",
+    "channel_type": "channel"
+}
+{
+    "type": "message",
+    "subtype": "bot_message",
+    "text": "",
+    "ts": "1651130651.132929",
+    "bot_id": "B03B7CH7KMX",
+    "attachments": [
+        {
+            "id": 1,
+            "thumb_height": 512,
+            "thumb_width": 512,
+            "thumb_url": "https://play-lh.googleusercontent.com/Us16LmGy_PeXSn6f-OTVqC6Kxm52yMiSxeLJN-fcLp-DKNark8Tu4t5UIKlTgBc6Ijc",
+            "color": "f0603a",
+            "fallback": "CityMall - Online Grocery Shop (Google Play)\u2605 EN mera order chini namkeen aur cokecola nahi aya isiliye 1hi star milega",
+            "text": "\u2605\u2606\u2606\u2606\u2606 English \nmera order chini namkeen aur cokecola nahi aya isiliye 1hi star milega",
+            "pretext": "<https://watch.appfollow.io/apps/my-first-workspace/integrations/56176?utm_campaign=Google+Play&amp;tab=slack&amp;utm_medium=slack&amp;utm_source=review&amp;autologin=236483:c6467d3acc7d84d4f6b230690def949e01495f9fa077ae0869017286b017b05b:1651130651&amp;t=r|CityMall - Online Grocery Shop>\nGoogle Play, City Mall Live",
+            "fields": [
+                {
+                    "value": "_by_ <https://www.google.com/search?q=%22Dev+Raj%22|_Dev Raj_>_ for v1.30.9 () \u2013  _ \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=984503828&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=reply&amp;autologin=236483:c6467d3acc7d84d4f6b230690def949e01495f9fa077ae0869017286b017b05b:1651130651&amp;t=r|*Reply*> \u00b7 <https://appfollow.io/gp/10556/review/984503828?s=global4&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=permalink|Permalink> \u00b7 <https://appfollow.io/gp/10556/review/984503828?s=global4&amp;action=translate&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=translate|Translate> \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=984503828&amp;utm_medium=slack&amp;utm_source=reviews&amp;utm_campaign=add_tag&amp;autologin=236483:c6467d3acc7d84d4f6b230690def949e01495f9fa077ae0869017286b017b05b:1651130651&amp;t=r|Add tag>",
+                    "title": "",
+                    "short": false
+                }
+            ],
+            "mrkdwn_in": [
+                "fields",
+                "pretext",
+                "text"
+            ]
+        }
+    ],
+    "channel": "C03AUQ337J7",
+    "event_ts": "1651130651.132929",
+    "channel_type": "channel"
+}
+{
+    "type": "message",
+    "subtype": "bot_message",
+    "text": "",
+    "ts": "1651130651.832959",
+    "bot_id": "B03B7CH7KMX",
+    "attachments": [
+        {
+            "id": 1,
+            "thumb_height": 512,
+            "thumb_width": 512,
+            "thumb_url": "https://play-lh.googleusercontent.com/Us16LmGy_PeXSn6f-OTVqC6Kxm52yMiSxeLJN-fcLp-DKNark8Tu4t5UIKlTgBc6Ijc",
+            "color": "f0603a",
+            "fallback": "CityMall - Online Grocery Shop (Google Play)\u2605 EN Worst experience, it has been 5 days since I cancelled my order, haven't got refund yet.",
+            "text": "\u2605\u2606\u2606\u2606\u2606 English :bell: (Updated)\nWorst experience, it has been 5 days since I cancelled my order, haven't got refund yet.",
+            "pretext": "<https://watch.appfollow.io/apps/my-first-workspace/integrations/56176?utm_source=review&amp;utm_campaign=Google+Play&amp;tab=slack&amp;utm_medium=slack&amp;autologin=236483:c6467d3acc7d84d4f6b230690def949e01495f9fa077ae0869017286b017b05b:1651130651&amp;t=r|CityMall - Online Grocery Shop>\nGoogle Play, City Mall Live",
+            "fields": [
+                {
+                    "value": "_by_ <https://www.google.com/search?q=%22Manoj+Gupta%22|_Manoj Gupta_>_ for v1.30.9 () \u2013  _ \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=978914389&amp;utm_source=reviews&amp;utm_medium=slack&amp;utm_campaign=reply&amp;autologin=236483:c6467d3acc7d84d4f6b230690def949e01495f9fa077ae0869017286b017b05b:1651130651&amp;t=r|*Reply*> \u00b7 <https://appfollow.io/gp/10556/review/978914389?s=global4&amp;utm_source=reviews&amp;utm_medium=slack&amp;utm_campaign=permalink|Permalink> \u00b7 <https://appfollow.io/gp/10556/review/978914389?s=global4&amp;action=translate&amp;utm_source=reviews&amp;utm_medium=slack&amp;utm_campaign=translate|Translate> \u00b7 <https://watch.appfollow.io/apps/my-first-workspace/reviews/56176?review_id=978914389&amp;utm_source=reviews&amp;utm_medium=slack&amp;utm_campaign=add_tag&amp;autologin=236483:c6467d3acc7d84d4f6b230690def949e01495f9fa077ae0869017286b017b05b:1651130651&amp;t=r|Add tag>",
+                    "title": "",
+                    "short": false
+                }
+            ],
+            "mrkdwn_in": [
+                "fields",
+                "pretext",
+                "text"
+            ]
+        }
+    ],
+    "channel": "C03AUQ337J7",
+    "event_ts": "1651130651.832959",
+    "channel_type": "channel"
+}
