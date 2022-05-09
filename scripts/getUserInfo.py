@@ -5,9 +5,14 @@ sys.path.append('/home/ubuntu/prakshal_mehra')
 from helper import *
 from import_modules import *
 from datetime import datetime
-import csv
+import csv  
+
 
 def get_userData():
+    time=list()
+    current_time=str(datetime.now())
+    time.append(current_time)
+    
     df_cx=get_data_cmdb(
         """
         select 
@@ -17,9 +22,6 @@ def get_userData():
         """
     )
     print("Writing data in data_cx.csv")
-    time=list()
-    current_time=str(datetime.now())
-    time.append(current_time)
     
     with open('/Users/prakshalm/Documents/cityMall/play-store-review/src/operations/data_cx.csv','w') as f:
         writer = csv.writer(f)

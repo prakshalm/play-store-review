@@ -1,6 +1,7 @@
+import random
+import string
 from slack_sdk import WebClient
 import os
-import logging
 from slack_sdk.errors import SlackApiError
 from pathlib import Path
 from dotenv import load_dotenv
@@ -8,7 +9,8 @@ from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from operations.user_data import get_cx_data,getUserName,get_cl_data
 import json
-
+from operations.logging import logger
+    
 
 '''setting tokens for the bot and environment for app'''
 
@@ -19,22 +21,22 @@ slack_app=App(
     token=os.environ['SLACK_TOKEN'],
     signing_secret=os.environ['SIGNING_SECRET']
 )
+
+# BOT ID OF THE CURRENT BOT
 BOT_ID=client.api_call("auth.test")['user_id']
-logger = logging.getLogger(__name__)
 
 @slack_app.event("message")
 def userDetails(payload):
     try:
+        source = string.ascii_letters + string.digits
+        uuid = ''.join((random.choice(source) for i in range(16)))
         if 'subtype' in payload:
-            user_id=payload['bot_id']
+            logger.info(uuid)
+            user_id=payload['bot_id'] #CM PLAY STORE REVIEW BOT ID
             userName_link=payload['attachments'][0]['fields'][0]['value']
             app_name=payload['attachments'][0]['fallback']
             channel_id=payload['channel']
             ts=payload['ts']
-            with open('paylod_data.json', 'a') as json_file:
-                json_file.write('\n')
-                json.dump(payload, json_file,indent=4,separators=(',',': '))
-                
             if BOT_ID!=user_id:
                 if 'thread_ts' not in payload:
                     app_name=app_name.split(" ")

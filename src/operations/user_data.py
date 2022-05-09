@@ -13,19 +13,11 @@ def getUserName(userMessage:str):
         if returned_value:
             userName=returned_value.string
             userName=userName.replace("<https://www.google.com/search?q=%22","")
-            userName=userName.replace("+"," ")
-            userName=userName.replace("%22","")
-            userName=userName.replace("|"," ")
-            if '-' and '_' in userName:
-                userName=userName.replace("_","") 
-                userName=userName.replace("-"," ") 
-            else:
-                userName=userName.replace("_"," ") 
-                userName=userName.replace("-"," ") 
-            userName = ''.join([i for i in userName if not i.isdigit()]) # removing digits from the retreived name
-            userName=userName.split(" ")
-            userName=str(userName[0]+" "+userName[1])
+            userName=userName.replace("+"," ")         
+            userName=userName.split('|')
+            userName=re.sub('[^A-Za-z ]+', '',userName[0])
             print(userName)
+
     if userName:        
         return userName
     else:
@@ -72,7 +64,8 @@ def get_cx_data(user_to_search:str,threshold=95):
         if user_info_df.shape[0]>=1:
             user_info_df=user_info_df.sort_values(by=['Processing At']).head(11)
             user_info_df.drop("Processing At",axis=1,inplace=True)
-            print('Searched in cx.csv')
+            user_info_df.reset_index(drop=True, inplace=True)
+            logger.info('Searched in cx.csv')
             print(user_info_df)
             return user_info_df
         else:
@@ -86,7 +79,7 @@ def get_cx_data(user_to_search:str,threshold=95):
 # FOR CL
 def get_cl_data(user_to_search:str,threshold=95):
     if(threshold>80):
-        print('Searching in cl.csv')
+        logger.info('Searching in cl.csv')
         df=pd.read_csv('./operations/data_cl.csv',skiprows=1)
         length=df.shape[0]
         user_info=list()
@@ -99,7 +92,8 @@ def get_cl_data(user_to_search:str,threshold=95):
         if user_info_df.shape[0]>=1:
             user_info_df=user_info_df.sort_values(by=['Processing At']).head(11)
             user_info_df= user_info_df.drop("Processing At",axis=1)
-            print('Searched in cl.csv')
+            user_info_df.reset_index(drop=True, inplace=True)
+            logger.info('Searched in cl.csv')
             print(user_info_df)
             return user_info_df
         else:
@@ -108,5 +102,3 @@ def get_cl_data(user_to_search:str,threshold=95):
             return res
     else:
         return "No user Found"
-    
-    
