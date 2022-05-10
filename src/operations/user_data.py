@@ -50,7 +50,7 @@ def removeDuplicates(lst):
 
 # FOR CX
 def get_cx_data(user_to_search:str,threshold=95):
-    if threshold>80:
+    if threshold>=80:
         logger.info('Searching in cx.csv')
         df=pd.read_csv('./operations/data_cx.csv',skiprows=1)
         length=df.shape[0]
@@ -78,7 +78,7 @@ def get_cx_data(user_to_search:str,threshold=95):
 
 # FOR CL
 def get_cl_data(user_to_search:str,threshold=95):
-    if(threshold>80):
+    if(threshold>=80):
         logger.info('Searching in cl.csv')
         df=pd.read_csv('./operations/data_cl.csv',skiprows=1)
         length=df.shape[0]
