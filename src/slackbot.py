@@ -28,10 +28,7 @@ BOT_ID=client.api_call("auth.test")['user_id']
 @slack_app.event("message")
 def userDetails(payload):
     try:
-        source = string.ascii_letters + string.digits
-        uuid = ''.join((random.choice(source) for i in range(16)))
         if 'subtype' in payload:
-            logger.info(uuid)
             user_id=payload['bot_id'] #CM PLAY STORE REVIEW BOT ID
             userName_link=payload['attachments'][0]['fields'][0]['value']
             app_name=payload['attachments'][0]['fallback']
