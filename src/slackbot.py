@@ -1,5 +1,3 @@
-import random
-import string
 from slack_sdk import WebClient
 import os
 from slack_sdk.errors import SlackApiError
