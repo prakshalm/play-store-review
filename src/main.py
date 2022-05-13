@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from operations.user_data import get_cx_data,getUserName,get_cl_data
-import json
 from operations.logging import logger
     
 

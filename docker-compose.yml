@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  flask:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: play_store_userData
+    env_file:
+      - .env
+    command: ["gunicorn", "app:app", "-b", "0.0.0.0:5000"]
+    ports:
+      - "5001:5000"
+    
+  
+  consumer:
+    build:
+      context: ./kafka_consumer
+      dockerfile: ./Dockerfile
+    container_name: consumer
+    env_file:
+      - .env
+    command: ["gunicorn", "kafka_consumer_main:kafka_consumer_main", "-b", "0.0.0.0:5000"]
+    ports:
+      - "5002:5000"
