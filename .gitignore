@@ -1,7 +1,4 @@
-helper.py
-import_modules.py
 forUser_response.py
-*.csv
 .env
 .ipynb_checkpoints
 __pycache__

@@ -1,9 +1,7 @@
-
-import logging
 import pandas as pd
-from thefuzz import fuzz
 import re
-logger = logging.getLogger(__name__)
+from operations.helper import *
+from operations.import_modules import *
 
 def getUserName(userMessage:str):
     userMessage=userMessage.split(" ")
@@ -48,97 +46,119 @@ def removeDuplicates(lst):
 
 
 # FOR CX
-def get_cx_data(user_to_search:str,threshold=95):
-    if threshold>=80:
-        logger.info('Searching in cx.csv')
-        df=pd.read_csv('./operations/data_cx.csv',skiprows=1)
-        length=df.shape[0]
-        user_info=list()
-        for i in range(length):
-            if(fuzz.ratio(str(df['user_name'][i]).lower(),user_to_search.lower())>threshold):
-                user_info.append((df['user_name'][i],df['user_id'][i],df['user_phone'][i],df['processing_at'][i]))
-        user_info=removeDuplicates(user_info)
-        user_info_df=pd.DataFrame(user_info)
-        user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'Processing At'}, inplace = True)
+    
+def get_cx_data(user_to_search:str,threshold=1):
+    if threshold<=2:
+        print('Searching For CX')
+        user_info_df=get_data_cmdb(
+        f"""
+        WITH q AS (
+            SELECT '{user_to_search}' AS given_name
+        )
+        SELECT
+            DISTINCT ON (o.user_id)
+            o.user_id,u.user_name,u.user_phone,o.processing_at
+        FROM orders o join tbl_user u on u.user_id=o.user_id, q
+        WHERE soundex(u.user_name) = soundex(given_name)
+        AND levenshtein(lower(u.user_name),lower(given_name)) <= {threshold} and o.created_at > now() - interval '10 days';
+        """
+        )
         if user_info_df.shape[0]>=1:
-            user_info_df=user_info_df.sort_values(by=['Processing At']).head(11)
-            user_info_df.drop("Processing At",axis=1,inplace=True)
+            print(user_info_df)
+            user_info_df=pd.DataFrame(removeDuplicates(user_info_df.values.tolist()))
+            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at'}, inplace = True)
+            user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
+            user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
-            logger.info('Searched in cx.csv')
             print(user_info_df)
             return user_info_df
         else:
             print(user_info_df)
-            res=get_cx_data(user_to_search,threshold-5)
+            res=get_cx_data(user_to_search,threshold+1)
             return res
         
-    elif len(user_to_search)>1:
+    elif(len(user_to_search)>1):
         user_to_search=user_to_search.split(" ")
-        logger.info('Searching First Name in cx.csv')
-        df=pd.read_csv('./operations/data_cx.csv',skiprows=1)
-        length=df.shape[0]
-        user_info=list()
-        for i in range(length):
-            if(fuzz.ratio(str(df['user_name'][i]).lower(),user_to_search[0].lower())>90):
-                user_info.append((df['user_name'][i],df['user_id'][i],df['user_phone'][i],df['processing_at'][i]))
-        user_info=removeDuplicates(user_info)
-        user_info_df=pd.DataFrame(user_info)
-        user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'Processing At'}, inplace = True)
+        print('''Searching CX's First Name''')
+        user_info_df=get_data_cmdb(
+        f"""
+        WITH q AS (
+            SELECT '{user_to_search[0]}' AS given_name
+        )
+        SELECT
+            DISTINCT ON (o.user_id)
+            o.user_id,u.user_name,u.user_phone,o.processing_at
+        FROM orders o join tbl_user u on u.user_id=o.user_id, q
+        WHERE soundex(u.user_name) = soundex(given_name)
+        AND levenshtein(lower(u.user_name),lower(given_name)) <= 1 and o.created_at > now() - interval '10 days';
+        """
+        )
         if user_info_df.shape[0]>=1:
-            user_info_df=user_info_df.sort_values(by=['Processing At']).head(11)
-            user_info_df.drop("Processing At",axis=1,inplace=True)
+            user_info_df=pd.DataFrame(removeDuplicates(user_info_df.values.tolist()))
+            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at'}, inplace = True)
+            user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
+            user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
-            logger.info('Searched in cx.csv')
             print(user_info_df)
             return user_info_df
         else:
-            return "No user Found"
+            return "No User Found"
     else:
         return "No user Found"
 
-
 # FOR CL
-def get_cl_data(user_to_search:str,threshold=95):
-    if(threshold>=80):
-        logger.info('Searching in cl.csv')
-        df=pd.read_csv('./operations/data_cl.csv',skiprows=1)
-        length=df.shape[0]
-        user_info=list()
-        for i in range(length):
-            if(fuzz.ratio(str(df['name'][i]).lower(),user_to_search.lower())>threshold):
-                user_info.append((df['name'][i],df['user_id'][i],df['phone_number'][i],df['processing_at'][i]))
-        user_info=removeDuplicates(user_info)
-        user_info_df=pd.DataFrame(user_info)
-        user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'Processing At'}, inplace = True)
+def get_cl_data(user_to_search:str,threshold=1):
+    if threshold<=2:
+        print('Searching For CL')
+        user_info_df=get_data_cmdb(
+        f"""
+        WITH q AS (
+            SELECT '{user_to_search}' AS given_name
+        )
+        SELECT
+            DISTINCT ON (o.user_id)
+            o.user_id, tl.name, tl.phone_number, o.processing_at
+        FROM orders o join team_leaders tl on tl.id = o.team_leader, q
+        WHERE soundex(tl.name) = soundex(given_name)
+        AND levenshtein(lower(tl.name),lower(given_name)) <= {threshold} and o.created_at > now() - interval '10 days';
+        """
+        )
         if user_info_df.shape[0]>=1:
-            user_info_df=user_info_df.sort_values(by=['Processing At']).head(11)
-            user_info_df= user_info_df.drop("Processing At",axis=1)
+            print(user_info_df)
+            user_info_df=pd.DataFrame(removeDuplicates(user_info_df.values.tolist()))
+            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at'}, inplace = True)
+            user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
+            user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
-            logger.info('Searched in cl.csv')
             print(user_info_df)
             return user_info_df
         else:
             print(user_info_df)
-            res=get_cl_data(user_to_search,threshold-5)
+            res=get_cx_data(user_to_search,threshold+1)
             return res
         
-    elif len(user_to_search)>1:
+    elif(len(user_to_search)>1):
         user_to_search=user_to_search.split(" ")
-        logger.info('Searching First Name in cl.csv')
-        df=pd.read_csv('./operations/data_cl.csv',skiprows=1)
-        length=df.shape[0]
-        user_info=list()
-        for i in range(length):
-            if(fuzz.ratio(str(df['name'][i]).lower(),user_to_search[0].lower())>90):
-                user_info.append((df['name'][i],df['user_id'][i],df['phone_number'][i],df['processing_at'][i]))
-        user_info=removeDuplicates(user_info)
-        user_info_df=pd.DataFrame(user_info)
-        user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'Processing At'}, inplace = True)
+        print('''Searching CL's First Name''')
+        user_info_df=get_data_cmdb(
+        f"""
+        WITH q AS (
+            SELECT '{user_to_search[0]}' AS given_name
+        )
+        SELECT
+            DISTINCT ON (o.user_id)
+            o.user_id, tl.name, tl.phone_number, o.processing_at
+        FROM orders o join team_leaders tl on tl.id = o.team_leader, q
+        WHERE soundex(tl.name) = soundex(given_name)
+        AND levenshtein(lower(tl.name),lower(given_name)) <= 1 and o.created_at > now() - interval '10 days';
+        """
+        )
         if user_info_df.shape[0]>=1:
-            user_info_df=user_info_df.sort_values(by=['Processing At']).head(11)
-            user_info_df= user_info_df.drop("Processing At",axis=1)
+            user_info_df=pd.DataFrame(removeDuplicates(user_info_df.values.tolist()))
+            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at'}, inplace = True)
+            user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
+            user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
-            logger.info('Searched in cl.csv')
             print(user_info_df)
             return user_info_df
         else:

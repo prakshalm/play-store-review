@@ -1,6 +1,0 @@
-slack_sdk
-slack_bolt
-pandas
-thefuzz
-pathlib
-regex
