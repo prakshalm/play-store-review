@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  userdata:
+    build:
+      context: ./src
+      dockerfile: ./Dockerfile
+    container_name: playStore_userData
+    env_file:
+      - ./src/.env
+    command: ["python","main.py"]
+    ports:
+      - "5001:5000"
+    
