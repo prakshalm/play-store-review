@@ -57,7 +57,6 @@ def get_cx_data(user_to_search:str,threshold=1):
             SELECT '{user_to_search}' AS given_name
         )
         SELECT
-            DISTINCT ON (o.user_id)
             o.user_id,u.user_name,u.user_phone,o.processing_at
         FROM orders o join tbl_user u on u.user_id=o.user_id, q
         WHERE soundex(u.user_name) = soundex(given_name)
@@ -87,7 +86,6 @@ def get_cx_data(user_to_search:str,threshold=1):
             SELECT '{user_to_search[0]}' AS given_name
         )
         SELECT
-            DISTINCT ON (o.user_id)
             o.user_id,u.user_name,u.user_phone,o.processing_at
         FROM orders o join tbl_user u on u.user_id=o.user_id, q
         WHERE soundex(u.user_name) = soundex(given_name)
@@ -117,7 +115,6 @@ def get_cl_data(user_to_search:str,threshold=1):
             SELECT '{user_to_search}' AS given_name
         )
         SELECT
-            DISTINCT ON (o.user_id)
             o.user_id, tl.name, tl.phone_number, o.processing_at
         FROM orders o join team_leaders tl on tl.id = o.team_leader, q
         WHERE soundex(tl.name) = soundex(given_name)
@@ -147,7 +144,6 @@ def get_cl_data(user_to_search:str,threshold=1):
             SELECT '{user_to_search[0]}' AS given_name
         )
         SELECT
-            DISTINCT ON (o.user_id)
             o.user_id, tl.name, tl.phone_number, o.processing_at
         FROM orders o join team_leaders tl on tl.id = o.team_leader, q
         WHERE soundex(tl.name) = soundex(given_name)

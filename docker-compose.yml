@@ -4,10 +4,10 @@ services:
   build:
     context: .
     dockerfile: ./Dockerfile
-    container_name: play_store_userData
+    container_name: playStore_userData
     env_file:
       - .env
-    command: ["gunicorn", "app:app", "-b", "0.0.0.0:5000"]
+    command: ["python","main.py"]
     ports:
       - "5001:5000"
     
