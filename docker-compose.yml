@@ -1,24 +1,14 @@
 version: '3.7'
 
 services:
-  build:
-    context: .
-    dockerfile: ./Dockerfile
+  userdata:
+    build:
+      context: ./src
+      dockerfile: ./Dockerfile
     container_name: playStore_userData
     env_file:
-      - .env
+      - ./src/.env
     command: ["python","main.py"]
     ports:
       - "5001:5000"
     
-  
-  consumer:
-    build:
-      context: ./kafka_consumer
-      dockerfile: ./Dockerfile
-    container_name: consumer
-    env_file:
-      - .env
-    command: ["gunicorn", "kafka_consumer_main:kafka_consumer_main", "-b", "0.0.0.0:5000"]
-    ports:
-      - "5002:5000"
