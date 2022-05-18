@@ -28,17 +28,17 @@ def removeDuplicates(lst):
     '''
     seen = []
     Output = []
-    for a, b, c, d in lst:
+    for a, b, c, d, e in lst:
         if [a,b,c] not in seen:
             seen.append([a,b,c])
-            Output.append([a, b, c, d])
+            Output.append([a, b, c, d, e])
 
     seen = []
     removed_Duplicate = []
-    for a, b, c, d in Output:
+    for a, b, c, d, e in Output:
         if c not in seen:
             seen.append(c)
-            removed_Duplicate.append([a, b, c, d])
+            removed_Duplicate.append([a, b, c, d, e])
         else:
             index=seen.index(c)
             removed_Duplicate[index][1]=str(removed_Duplicate[index][1])+','+str(b)
@@ -57,7 +57,7 @@ def get_cx_data(user_to_search:str,threshold=1):
             SELECT '{user_to_search}' AS given_name
         )
         SELECT
-            u.user_name,o.user_id,u.user_phone,o.processing_at
+            u.user_name,o.user_id,u.user_phone,o.processing_at,o.order_status
         FROM orders o join tbl_user u on u.user_id=o.user_id, q
         WHERE soundex(u.user_name) = soundex(given_name)
         AND levenshtein(lower(u.user_name),lower(given_name)) <= {threshold} and o.created_at > now() - interval '10 days';
@@ -66,7 +66,7 @@ def get_cx_data(user_to_search:str,threshold=1):
         if user_info_df.shape[0]>=1:
             logger.info(user_info_df)
             user_info_df=pd.DataFrame(removeDuplicates(user_info_df.values.tolist()))
-            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at'}, inplace = True)
+            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at',4:'Order Status'}, inplace = True)
             user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
             user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
@@ -86,7 +86,7 @@ def get_cx_data(user_to_search:str,threshold=1):
             SELECT '{user_to_search[0]}' AS given_name
         )
         SELECT
-            u.user_name,o.user_id,u.user_phone,o.processing_at
+            u.user_name,o.user_id,u.user_phone,o.processing_at,o.order_status
         FROM orders o join tbl_user u on u.user_id=o.user_id, q
         WHERE soundex(u.user_name) = soundex(given_name)
         AND levenshtein(lower(u.user_name),lower(given_name)) <= 1 and o.created_at > now() - interval '10 days';
@@ -94,7 +94,7 @@ def get_cx_data(user_to_search:str,threshold=1):
         )
         if user_info_df.shape[0]>=1:
             user_info_df=pd.DataFrame(removeDuplicates(user_info_df.values.tolist()))
-            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at'}, inplace = True)
+            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at',4:'Order Status'}, inplace = True)
             user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
             user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
@@ -115,7 +115,7 @@ def get_cl_data(user_to_search:str,threshold=1):
             SELECT '{user_to_search}' AS given_name
         )
         SELECT
-            tl.name,o.user_id, tl.phone_number, o.processing_at
+            tl.name,o.user_id, tl.phone_number, o.processing_at,o.order_status
         FROM orders o join team_leaders tl on tl.id = o.team_leader, q
         WHERE soundex(tl.name) = soundex(given_name)
         AND levenshtein(lower(tl.name),lower(given_name)) <= {threshold} and o.created_at > now() - interval '10 days';
@@ -124,7 +124,7 @@ def get_cl_data(user_to_search:str,threshold=1):
         if user_info_df.shape[0]>=1:
             logger.info(user_info_df)
             user_info_df=pd.DataFrame(removeDuplicates(user_info_df.values.tolist()))
-            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at'}, inplace = True)
+            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at',4:'Order Status'}, inplace = True)
             user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
             user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
@@ -144,7 +144,7 @@ def get_cl_data(user_to_search:str,threshold=1):
             SELECT '{user_to_search[0]}' AS given_name
         )
         SELECT
-             tl.name, o.user_id, tl.phone_number, o.processing_at
+             tl.name, o.user_id, tl.phone_number, o.processing_at,o.order_status
         FROM orders o join team_leaders tl on tl.id = o.team_leader, q
         WHERE soundex(tl.name) = soundex(given_name)
         AND levenshtein(lower(tl.name),lower(given_name)) <= 1 and o.created_at > now() - interval '10 days';
@@ -152,7 +152,7 @@ def get_cl_data(user_to_search:str,threshold=1):
         )
         if user_info_df.shape[0]>=1:
             user_info_df=pd.DataFrame(removeDuplicates(user_info_df.values.tolist()))
-            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at'}, inplace = True)
+            user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at',4:'Order Status'}, inplace = True)
             user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
             user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
