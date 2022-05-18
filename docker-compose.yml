@@ -11,4 +11,3 @@ services:
     command: ["python","main.py"]
     ports:
       - "5001:5000"
-    
