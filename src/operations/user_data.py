@@ -2,6 +2,7 @@ import pandas as pd
 import re
 from operations.helper import *
 from operations.import_modules import *
+from operations.logging import logger
 
 def getUserName(userMessage:str):
     userMessage=userMessage.split(" ")
@@ -14,7 +15,7 @@ def getUserName(userMessage:str):
             userName=userName.replace("+"," ")         
             userName=userName.split('|')
             userName=re.sub('[^A-Za-z ]+', '',userName[0])
-            print(userName)
+            logger.info(userName)
     if userName:        
         return userName
     else:
@@ -49,7 +50,7 @@ def removeDuplicates(lst):
     
 def get_cx_data(user_to_search:str,threshold=1):
     if threshold<=2:
-        print('Searching For CX')
+        logger.info('Searching For CX')
         user_info_df=get_data_cmdb(
         f"""
         WITH q AS (
@@ -64,22 +65,22 @@ def get_cx_data(user_to_search:str,threshold=1):
         """
         )
         if user_info_df.shape[0]>=1:
-            print(user_info_df)
+            logger.info(user_info_df)
             user_info_df=pd.DataFrame(removeDuplicates(user_info_df.values.tolist()))
             user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at'}, inplace = True)
             user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
             user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
-            print(user_info_df)
+            logger.info(user_info_df)
             return user_info_df
         else:
-            print(user_info_df)
+            logger.info(user_info_df)
             res=get_cx_data(user_to_search,threshold+1)
             return res
         
     elif(len(user_to_search)>1):
         user_to_search=user_to_search.split(" ")
-        print('''Searching CX's First Name''')
+        logger.info('''Searching CX's First Name''')
         user_info_df=get_data_cmdb(
         f"""
         WITH q AS (
@@ -99,7 +100,7 @@ def get_cx_data(user_to_search:str,threshold=1):
             user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
             user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
-            print(user_info_df)
+            logger.info(user_info_df)
             return user_info_df
         else:
             return "No User Found"
@@ -109,7 +110,7 @@ def get_cx_data(user_to_search:str,threshold=1):
 # FOR CL
 def get_cl_data(user_to_search:str,threshold=1):
     if threshold<=2:
-        print('Searching For CL')
+        logger.info('Searching For CL')
         user_info_df=get_data_cmdb(
         f"""
         WITH q AS (
@@ -124,22 +125,22 @@ def get_cl_data(user_to_search:str,threshold=1):
         """
         )
         if user_info_df.shape[0]>=1:
-            print(user_info_df)
+            logger.info(user_info_df)
             user_info_df=pd.DataFrame(removeDuplicates(user_info_df.values.tolist()))
             user_info_df.rename(columns = {0:'Name',1:'user_id',2:'phone_number',3:'processing_at'}, inplace = True)
             user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
             user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
-            print(user_info_df)
+            logger.info(user_info_df)
             return user_info_df
         else:
-            print(user_info_df)
+            logger.info(user_info_df)
             res=get_cx_data(user_to_search,threshold+1)
             return res
         
     elif(len(user_to_search)>1):
         user_to_search=user_to_search.split(" ")
-        print('''Searching CL's First Name''')
+        logger.info('''Searching CL's First Name''')
         user_info_df=get_data_cmdb(
         f"""
         WITH q AS (
@@ -159,7 +160,7 @@ def get_cl_data(user_to_search:str,threshold=1):
             user_info_df=user_info_df.sort_values(by=['processing_at']).head(11)
             user_info_df= user_info_df.drop("processing_at",axis=1)
             user_info_df.reset_index(drop=True, inplace=True)
-            print(user_info_df)
+            logger.info(user_info_df)
             return user_info_df
         else:
             return "No User Found"
